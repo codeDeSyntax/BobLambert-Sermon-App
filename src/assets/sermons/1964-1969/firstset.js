@@ -20160,4 +20160,4 @@ const earlySermons = [
     sermon:""
   },
 ];
-export default earlySermons
+module.exports = earlySermons

@@ -987,6 +987,10 @@ input[type="range"]::-ms-fill-lower {
   position: relative;
 }
 
+.sticky {
+  position: sticky;
+}
+
 .right-0 {
   right: 0px;
 }
@@ -1158,6 +1162,10 @@ input[type="range"]::-ms-fill-lower {
 
 .flex-1 {
   flex: 1 1 0%;
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
 
 .grow {
