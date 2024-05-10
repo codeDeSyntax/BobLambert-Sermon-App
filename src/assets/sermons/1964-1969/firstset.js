@@ -20160,3 +20160,4 @@ const earlySermons = [
     sermon:""
   },
 ];
+export default earlySermons
