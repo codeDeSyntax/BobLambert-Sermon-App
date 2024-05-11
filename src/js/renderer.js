@@ -1,27 +1,28 @@
+
 import earlySermons from "../../src/assets/sermons/1964-1969/firstset.js";
 
 const appContainer = document.getElementById("content");
 const sermonsContainer = document.getElementById("allsermons");
 function renderHomePage() {
   appContainer.innerHTML = `
-    <div class="videoDiv">      
-              <div class='videoHold' id="video">
-              <video autoplay controls loop >
-              <source src="../../src/assets/vids/smoketree.mp4" type="video/mp4">
-              </video>
-              </div>
-              
-              <div class='nextDiv'>
-              <button onclick='switchPrev()' class="nextBtn">⨞</button>
-              <button onclick='switchVid()' class="nextBtn">⨞</button>
-              </div>
-              <p
-                class="text-center text-text2 font-bold font-mono tracking-widest py-4"
-              >
-                Shalom saint!! Welcome to His Voice
-              </p>
-              <hr class='bg-background2 w-[90%] m-auto my-2'/>   
-     </div>
+  <div class="videoDiv">      
+  <div class='videoHold' id="video">
+  <video autoplay controls loop >
+  <source src="../../src/assets/vids/smoketree.mp4" type="video/mp4">
+  </video>
+  </div>
+  
+  <div class='nextDiv'>
+  <button onclick='switchPrev()' class="nextBtn">⨞</button>
+  <button onclick='switchVid()' class="nextBtn">⨞</button>
+  </div>
+  <p
+    class="text-center text-text2 font-bold font-mono tracking-widest py-4"
+  >
+    Shalom saint!! Welcome to His Voice
+  </p>
+  <hr class='bg-background2 w-[90%] m-auto my-2'/>   
+</div>
     `;
 }
 
@@ -42,19 +43,14 @@ function switchPrev() {
   vidHold.innerHTML = `<video autoplay controls loop'>
       <source src="../../src/assets/vids/treeturn.mp4" type="video/mp4">
       </video>`;
-  // vidHold.appendChild(newDiv);
+  vidHold.appendChild(newDiv);
 }
 
-// function renderSermon() {
-//   appContainer.innerHTML = `
-
-//   `;
-//   return sermonElement;
-// }
 
 function renderAllSermons() {
   sermonsContainer.innerHTML = "";
   earlySermons.forEach((sermon) => {
+
     const sermonElement = document.createElement("div");
     sermonElement.classList.add("sermonDiv");
     if (sermon.id % 2 === 0) {
@@ -62,6 +58,12 @@ function renderAllSermons() {
     } else {
       sermonElement.style.background = "#303336";
     }
+
+    //add a data attribute to store the pdf name
+    // replace ""00-Earths Final Moments"" with the key of the object containing the pdf name
+    //eg. file{name:,pdf:,preacher,} replace "00-Earths Final Moments" with file[pdf]
+    sermonElement.setAttribute("data-url", "00-Earths Final Moments");
+
     sermonElement.innerHTML = `
     <div>
     <h3 style='color:#bfc5c9; font-family:monospace; font-size:.9rem'>${sermon.title}</h3>
@@ -84,6 +86,7 @@ function renderNewSongPage() {
       </div>
     `;
 }
+
 
 // Define route handling logic
 function navigateTo(route) {

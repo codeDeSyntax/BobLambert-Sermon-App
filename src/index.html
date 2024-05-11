@@ -1,14 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="../src/js/renderer.js" type="module"></script>
-    <link rel="stylesheet" href="./input.css" />
-    <title>Document</title>
-  </head>
-  <body>
-    <main class="main">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./input.css" />
+  <script src="../build/pdf.mjs" type="module"></script>
+  <title>Bob Lambert</title>
+</head>
+
+<body class="bg-background">
+
+  <div class="min-h-screen flex flex-col h-screen bg-background">
+    <header class="bg-background2 w-screen h-12 flex items-center justify-center gap-2 p-2">
       <header class="header">
         <p>🍂</p>
         <div class="switchBtns">
@@ -97,10 +99,68 @@
         </div>
         <p>🍂</p>
       </header>
-      <div class="flex-container">
-        <aside class="aside" id="allsermons"></aside>
-        <section class="contentSwitch" id="content"></section>
-      </div>
-    </main>
-  </body>
+    </header>
+
+    <!-- Slider slider slider -->
+    <div class="flex-container">
+      <aside class="aside" id="allsermons"></aside>
+      <section class="contentSwitch" id="content"></section>
+    </div>
+    <!-- end main container -->
+
+    <!-- <footer class="bg-blu">Footer</footer> -->
+  </div>
+  <script type="module" src="js/renderer.js" defer></script>
+  <script type="module" defer>
+    //the pdf js is a module hence the script must be of type module to use most of its functions in another script
+    var elements = document.querySelectorAll('li')
+    ///calling of list elements which is the onlyelements with sermons
+    elements.forEach(item => {
+      item.addEventListener('click', function () {
+
+        //fetch the pdf name from the list attribute data-url
+        var url_val = item.getAttribute("data-url");
+        var directory = `assets/sermons/${url_val}.pdf`;
+        renderPdfViewer(directory)
+      });
+    })
+    var url = 'The-Science-of-Getting-Rich.pdf';
+    var thePdf = null;
+    /// this is the scale counter or what you use to zoom in and out
+    var scale = 4;
+    var viewer = document.querySelector('main');
+    function renderPdfViewer(val) {
+      url = val;
+      // Loaded via <script> tag, create shortcut to access PDF.js exports.
+      var { pdfjsLib } = globalThis;
+
+      // The workerSrc property shall be specified.
+      pdfjsLib.GlobalWorkerOptions.workerSrc = '../build/pdf.worker.mjs';
+
+      // Asynchronous to get the number and pdf pages to loop
+      var loadingTask = pdfjsLib.getDocument(url).promise.then(function (pdf) {
+        thePdf = pdf;
+        ///loop through pages and display them in the main element
+        for (var page = 1; page <= pdf.numPages; page++) {
+          var canvas = document.createElement("canvas");
+          canvas.className = 'pdf-page-canvas';
+          viewer.appendChild(canvas);
+          renderPage(page, canvas);
+        }
+      });
+    }
+    function renderPage(pageNumber, canvas) {
+      thePdf.getPage(pageNumber).then(function (page) {
+        var viewport = page.getViewport({ scale: scale });
+        //match the canvas width and height to match the pdf with and height
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport });
+      });
+    }
+    renderPdfViewer(url)
+  </script>
+</body>
+
 </html>
+
