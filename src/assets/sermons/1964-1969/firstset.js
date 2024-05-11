@@ -11028,7 +11028,7 @@ const earlySermons = [
   },
   {
     id:8,
-    title:'	The Man-Child Made Manifested In This Hour',
+    title:'	The Man-Child Made Manifested...',
     year:'1966',
     date:"August-13-1966 Pm. Miami, Florida",
     sermon:`
@@ -20160,4 +20160,4 @@ const earlySermons = [
     sermon:""
   },
 ];
-module.exports = earlySermons
+export default earlySermons

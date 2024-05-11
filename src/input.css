@@ -49,26 +49,25 @@
 }
 
 .flex-container {
-  display: flex;
-}
-/* width */
-aside::-webkit-scrollbar {
-  width: 10px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 28% 72%;
 }
 
-/* Track */
+aside::-webkit-scrollbar {
+  width: 5px;
+}
+
 aside::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
 
-/* Handle */
 aside::-webkit-scrollbar-thumb {
   background: #1a56db;
   border-radius: 10px;
 }
 
-/* Handle on hover */
 aside::-webkit-scrollbar-thumb:hover {
   background: #b30000;
 }
@@ -76,11 +75,15 @@ aside::-webkit-scrollbar-thumb:hover {
 aside {
   position: sticky;
   top: 80px;
-  padding: 20px;
-  width: 20%;
-  min-height: 100vh;
-
+  /* padding: 20px; */
+  height: 88vh;
   overflow-y: auto; /* Make aside scrollable */
+}
+.sermonDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 4px;
 }
 .gridValue {
   padding: 3px 0.4rem;
@@ -92,29 +95,27 @@ aside {
   font-family: monospace;
 }
 .contentSwitch {
-  padding-left: 20px;
+  display: flex;
+  justify-content: center;
   flex-grow: 1;
-  min-height: 100vh;
-  overflow-y: auto; /* Make main content scrollable */
-  border-left: 1px solid #8c8c8c;
+  padding: 20px;
+  overflow-y: scroll; /* Make main content scrollable */
+  /* border-left: 1px solid #8c8c8c; */
 }
 ::-webkit-scrollbar {
   width: 2px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #1a56db;
   border-radius: 10px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #b30000;
 }
@@ -174,14 +175,21 @@ aside {
   margin-bottom: 20px;
 }
 .videoDiv {
+  width: 100%;
   border-radius: 15px;
-  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
 }
 .videoHold {
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 video {
-  width: 90%;
+  width: 100%;
   margin: auto;
   height: 40vh;
   object-fit: cover;
@@ -192,7 +200,6 @@ video {
   align-items: center;
   justify-content: space-between;
   width: 75%;
-  margin: auto;
 }
 .nextBtn {
   padding: 0px 0.25rem;
